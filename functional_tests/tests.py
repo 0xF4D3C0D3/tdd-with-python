@@ -1,3 +1,4 @@
+import os
 import sys
 
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
@@ -23,6 +24,9 @@ class NewVisitorTest(StaticLiveServerTestCase):
 
     def setUp(self):
         self.browser = webdriver.Chrome()
+        staging_server = os.environ.get('STAGING_SERVER')
+        if staging_server:
+            self.server_url = 'http://' + staging_server
         self.browser.implicitly_wait(3)
 
     def tearDown(self):
